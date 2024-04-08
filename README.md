@@ -18,8 +18,8 @@ qsign
 ```
 
 **NOTE:** Before PP1, all our code changes will be done on the *benchmarking* branch and a PR will be made to *master*. In this branch, our primary focus is to prove that the implementations we built perform better than the existing implementations, and therefore, we primarily focus on benchmarking our implementations before PP1. These benchmarks are what will be included in our research paper.
-+ After PP1, we will create a new branch called *qsign* in which we will be building our commercials software that will be presented in PP2 and the final viva. PRs will be made to *master* from the *qsign* branch.
-+ Each branch in the *qsign* branch will have four micro-services that will be built by each individual, and deployed to a K8s cluster.
+After PP1, we will create a new branch called *qsign* in which we will be building our commercials software that will be presented in PP2 and the final viva. PRs will be made to *master* from the *qsign* branch.
+Each branch in the *qsign* branch will have four micro-services that will be built by each individual, and deployed to a K8s cluster.
 
 # Introduction
 + The most widely used public-key cryptosystem known as RSA is deprecated as it is vulnerable to quantum computer brute-force attempts. Post-quantum algorithms exist, but they are based on lattice-based cryptography, which is different from Elliptic Curve Cryptography (ECC) and RSA which the world was used to. Crystals-Kyber/Dilithium is a promising cryptosystem based on lattice-based cryptography, which is the core of our research.
