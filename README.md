@@ -19,7 +19,7 @@ qsign
 
 **NOTE:** Before PP1, all our code changes will be done on the *benchmarking* branch and a PR will be made to *master*. In the `benchmarking` branch, our primary focus is to prove that the implementations we built perform better than the existing implementations, and therefore, we primarily focus on benchmarking our implementations before PP1. These benchmarks are what will be included in our research paper.
 After PP1, we will create a new branch called *qsign* in which we will be building our commercials software that will be presented in PP2 and the final viva. PRs will be made to *master* from the *qsign* branch.
-Each branch in the *qsign* branch will have four micro-services that will be built by each individual, and deployed to a K8s cluster.
+The *qsign* branch will have four micro-services that will be built by four individual, put into a Docker image, and deployed to a K8s cluster.
 
 # Introduction
 + The most widely used public-key cryptosystem known as RSA is deprecated as it is vulnerable to quantum computer brute-force attempts. Post-quantum algorithms exist, but they are based on lattice-based cryptography, which is different from Elliptic Curve Cryptography (ECC) and RSA which the world was used to. Crystals-Kyber/Dilithium is a promising cryptosystem based on lattice-based cryptography, which is the core of our research.
@@ -64,3 +64,11 @@ Each branch in the *qsign* branch will have four micro-services that will be bui
 |            | Combine the key storage system with the authentication service. | No |
 | IT21146824 | Implement an anomaly detection model with an increased accuracy score. | No |
 |            | Attach the model to the authentication service and compare performance hits. | No |
+
+### Team Members
+|  IT Number   | Name                 | Email Address               |
+|--------------|----------------------|-----------------------------|
+| IT21145766   | Hassan M.M           | it21145766@my.sliit.lk      |
+| IT21025808   | Jayarathna M.A.R.N   | it21025808@my.sliit.lk      |
+| IT21112546   | Dharmawardhane D.R.R | it21112546@my.sliit.lk      |
+| IT21146824   | Basnagoda V.S        | it21146824@my.sliit.lk      |
