@@ -6,18 +6,22 @@ Other necessary information
  
 # Repository Structure
 **benchmarking branch**     *For PP1*
-└── benchmarking
+```
+benchmarking
    ├── dilithium-jwt        *(Handled by IT21145766)*
    ├── kyber-auth           *(Handled by IT21025808)*
    ├── ml                   *(Handled by IT21146824)*
    └── vectordb             *(Handled by IT21112546)*
+```
 
 **qsign branch**            *For PP2 & Final Viva*
-└── qsign
+```
+qsign
    ├── anomaly-detection    *(Handled by IT21146824)*
    ├── federated-sso        *(Handled by IT21145766)*
    ├── key-retrieval        *(Handled by IT21112546)*
    └── oauth2               *(Handled by IT21025808)*
+```
 
 **NOTE:** Before PP1, all our code changes will be done on the *benchmarking* branch and a PR will be made to *master*. In this branch, our primary focus is to prove that the implementations we built perform better than the existing implementations, and therefore, we primarily focus on benchmarking our implementations before PP1. These benchmarks are what will be included in our research paper.
 + After PP1, we will create a new branch called *qsign* in which we will be building our commercials software that will be presented in PP2 and the final viva. PRs will be made to *master* from the *qsign* branch.
