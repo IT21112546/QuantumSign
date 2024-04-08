@@ -56,17 +56,17 @@ qsign
 
 | IT Number  | Research Objective | Completed? |
 |------------|--------------------|------------|
-| IT21145766 | 1. Calculate the infrastructure cost difference between RSA and Dilithium. | No |
-|            | 2. Implement a JWT signing scheme using Crystals-Dilithium. | No |
-|            | 3. Perform a benchmark to measure the performance difference between RSA and Dilithium. | No |
-|            | 4. Implement a commercial token-granting server using Dilithium signed JWTs. | No |
-|            | 5. Develop a commercial federated SSO system that supports concurrent users. | No |
-| IT21025808 | 1. Implement an authentication system using Crystals-Kyber. | No |
-|            | 2. Benchmark the infrastructure resource usage of RSA and Crystals-Kyber. | No |
-|            | 3. Connect the authentication service to the token-granting server. | No |
-| IT21112546 | 1. Implement a post-quantum key storage system using a vector database. | No |
-|            | 2. Benchmark the key retrieval speed of the vector database. | No |
-|            | 3. Compare it to speeds of traditional key storage systems. | No |
-|            | 4. Combine the key storage system with the authentication service. | No |
-| IT21146824 | 1. Implement an anomaly detection model with an increased accuracy score. | No |
-|            | 2. Attach the model to the authentication service and compare performance hits. | No |
+| IT21145766 | Calculate the infrastructure cost difference between RSA and Dilithium. | No |
+|            | Implement a JWT signing scheme using Crystals-Dilithium. | No |
+|            | Perform a benchmark to measure the performance difference between RSA and Dilithium. | No |
+|            | Implement a commercial token-granting server using Dilithium signed JWTs. | No |
+|            | Develop a commercial federated SSO system that supports concurrent users. | No |
+| IT21025808 | Implement an authentication system using Crystals-Kyber. | No |
+|            | Benchmark the infrastructure resource usage of RSA and Crystals-Kyber. | No |
+|            | Connect the authentication service to the token-granting server. | No |
+| IT21112546 | Implement a post-quantum key storage system using a vector database. | No |
+|            | Benchmark the key retrieval speed of the vector database. | No |
+|            | Compare it to speeds of traditional key storage systems. | No |
+|            | Combine the key storage system with the authentication service. | No |
+| IT21146824 | Implement an anomaly detection model with an increased accuracy score. | No |
+|            | Attach the model to the authentication service and compare performance hits. | No |
