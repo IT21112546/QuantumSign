@@ -1,25 +1,25 @@
 # Repository Structure
-**benchmarking branch**     *For PP1*
+**research branch**     *For PP1*
 ```
-benchmarking
+research
    ├── dilithium-jwt        (Handled by IT21145766)
    ├── kyber-auth           (Handled by IT21025808)
    ├── ml                   (Handled by IT21146824)
    └── vectordb             (Handled by IT21112546)
 ```
 
-**qsign branch**            *For PP2 & Final Viva*
+**product branch**            *For PP2 & Final Viva*
 ```
-qsign
+product
    ├── anomaly-detection    (Handled by IT21146824)
    ├── federated-sso        (Handled by IT21145766)
    ├── key-retrieval        (Handled by IT21112546)
    └── oauth2               (Handled by IT21025808)
 ```
 
-**NOTE:** Before PP1, all our code changes will be done on the *benchmarking* branch and a PR will be made to *master*. In the `benchmarking` branch, our primary focus is to prove that the implementations we built perform better than the existing implementations, and therefore, we primarily focus on benchmarking our implementations before PP1. These benchmarks are what will be included in our research paper.
-After PP1, we will create a new branch called *qsign* in which we will be building our commercials software that will be presented in PP2 and the final viva. PRs will be made to *master* from the *qsign* branch.
-The *qsign* branch will have four micro-services that will be built by four individual, put into a Docker image, and deployed to a K8s cluster.
+**NOTE:** Before PP1, all our code changes will be done on the `research` branch and a PR will be made to `master`. In the `research` branch, our primary focus is to prove that the implementations we built perform better than the existing implementations, and therefore, we primarily focus on benchmarking our implementations before PP1. These benchmarks are what will be included in our research paper.
+After PP1, we will create a new branch called `product` in which we will be building our commercials software that will be presented in PP2 and the final viva. PRs will be made to `master` from the `product` branch.
+The `product` branch will have four micro-services that will be built by four individual, put into a Docker image, and deployed to a K8s cluster.
 
 # Introduction
 + The most widely used public-key cryptosystem known as RSA is deprecated as it is vulnerable to quantum computer brute-force attempts. Post-quantum algorithms exist, but they are based on lattice-based cryptography, which is different from Elliptic Curve Cryptography (ECC) and RSA which the world was used to. Crystals-Kyber/Dilithium is a promising cryptosystem based on lattice-based cryptography, which is the core of our research.
