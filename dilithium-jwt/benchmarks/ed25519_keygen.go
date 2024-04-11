@@ -27,11 +27,14 @@ func main() {
 	ed25519PrivateKey, _ := base.ImportEd25519Keys()
 
 	// Generate an ed25519 JWT token
-	_, tokenErr := base.GenTokenEd25519(ed25519TokenClaims, ed25519PrivateKey)
+	token, tokenErr := base.GenTokenEd25519(ed25519TokenClaims, ed25519PrivateKey)
 	ed25519KeyError(tokenErr)
 
 	// Get the current RAM
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
 	fmt.Printf("Memory used for token generation (ED25519): %v KB\n", m.Alloc / 1024)
+
+	// Export the Dilithium token
+	base.ExportJWT(token, "ed25519")
 }

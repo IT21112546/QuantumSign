@@ -29,11 +29,14 @@ func main() {
 	dilithiumKeyError(err)
 
 	// Generate an dilithium JWT token
-	_, tokenErr := base.GenTokenDilithium(dilithiumTokenClaims, dilithiumPrivateKey)
+	token, tokenErr := base.GenTokenDilithium(dilithiumTokenClaims, dilithiumPrivateKey)
 	dilithiumKeyError(tokenErr)
 
 	// Get the current RAM
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
 	fmt.Printf("Memory used for token generation (Dilithium): %v KB\n", m.Alloc / 1024)
+
+	// Export the Dilithium token for the next benchmark
+	base.ExportJWT(token, "dilithium")
 }

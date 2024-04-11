@@ -28,11 +28,14 @@ func main() {
 	rsaPrivateKey, _ := base.ImportRSAKeys()
 
 	// Generate an RSA JWT token
-	_, err := base.GenTokenRSA(rsaTokenClaims, rsaPrivateKey)
+	token, err := base.GenTokenRSA(rsaTokenClaims, rsaPrivateKey)
 	rsaKeyError(err)
 
 	// Get the current RAM
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
 	fmt.Printf("Memory used for token generation (RSA): %v KB\n", m.Alloc / 1024)
+
+	// Export the Dilithium token
+	base.ExportJWT(token, "rsa")
 }
