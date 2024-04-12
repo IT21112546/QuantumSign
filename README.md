@@ -50,9 +50,9 @@ The `product` branch will have four micro-services that will be built by four in
 
 | IT Number  | Research Objective | Completed? |
 |------------|--------------------|------------|
-| IT21145766 | Calculate the infrastructure cost difference between RSA and Dilithium. | No |
-|            | Implement a JWT signing scheme using Crystals-Dilithium. | No |
-|            | Perform a benchmark to measure the performance difference between RSA and Dilithium. | No |
+| IT21145766 | Calculate the infrastructure resource usage difference between RSA and Dilithium. | Yes |
+|            | Implement a JWT signing scheme using Crystals-Dilithium. | Yes |
+|            | Perform a benchmark to measure the performance difference between RSA and Dilithium. | Yes |
 |            | Implement a commercial token-granting server using Dilithium signed JWTs. | No |
 |            | Develop a commercial federated SSO system that supports concurrent users. | No |
 | IT21025808 | Implement an authentication system using Crystals-Kyber. | No |
