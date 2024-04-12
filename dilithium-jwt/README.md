@@ -20,20 +20,22 @@ base            *(The folder containing my JWT library & helper functions)
     2. Performance difference between Dilithium, RSA, & ED25519
 
 ### Token Generation Performance
-| Algorithm | Time (µs) |
-|-----------|-----------|
-| RSA (2048)| 820.98    |
-| Dilithium | 310.616   |
-| ED25519   | 23.718    |
++ The following performance metrics were averages of 1000 benchmark runs: 
+
+| Algorithm | Time (µs) | Standard Deviation (µs)|
+|-----------|-----------|------------------------|
+| RSA (2048)| 820.98    | ± 4.1                  |
+| Dilithium | 201.616   | ± 122.4                |
+| ED25519   | 23.718    | ± 1.8                  |
 
 + Dilithium performed 90% faster than RSA. Dilithium may be slower than ED25519 at token generation, but Dilithium beats ED25519 at token verification performance.
 
 ### Token Verification Performance
-| Algorithm | Time (µs) |
-|-----------|-----------|
-| RSA       | 28.651    |
-| Dilithium | 32.49     |
-| ED25519   | 50.698    |
+| Algorithm | Time (µs) | Standard Deviation (µs) |
+|-----------|-----------|-------------------------|
+| RSA       | 28.651    | ± 1.3                   |
+| Dilithium | 32.49     | ± 0.8                   |
+| ED25519   | 50.698    | ± 0.9                   |
 
 + Dilithium performs 60% faster than ED25519 at token verification. Dilithium is slower than RSA at token verification, but it is only 13% slower. Having a faster token verification time is more important than token generation time because if you have 1 million concurrent users accessing a resource, the server will perform 1 million token verifications. Token generation only happens when the user's token expires.
 
@@ -49,6 +51,16 @@ base            *(The folder containing my JWT library & helper functions)
 + This is largely due to the fact that the binary length of of a Dilithium private key is very large compared to RSA or ED25519, so, the generated signature is also large.
 + Therefore, the CPU has to allocate memory on the heap both for the large signature and the large private key.
 + Even with a memory optimized implementation where we pass the private key and token by reference/pointers, the memory usage remains unchanged.
++ The standard deviation for memory usage was 0.
+
+# Key Notes
+1. Dilithium performs 90% faster than RSA at token generation.
+2. Dilithium performs 60% faster than ED25519 at token verification.
+3. Dilithium uses 52% more heap memory compared to RSA and 61% more heap memory compared to ED25519 on average.
+4. Dilithium is slower than RSA at token verification, but it is only 13% slower.
+5. Dilithium's generation time has a standard deviation of 122.4 µs, which is very versatile.
+
++ The benchmarks were generated on an HP Victus 15 with an AMD Ryzen 7 7535HS (8 Cores, 16 Threads, 3.3 GHz Base), 16GB DDR4 memory, Arch Linux (6.8.4-arch1-1 kernel).
 
 # Setup Instructions
 + The only pre-requisite to run my benchmark is `Docker`.
