@@ -1,0 +1,21 @@
+services:
+  qdrant:
+    restart: always
+    container_name: "qdrant"
+    image: qdrant/qdrant:master
+    ports:
+      - 6333:6333
+      - 6334:6334
+    volumes:
+        - "./.qdrant_storage:/qdrant/storage:z"
+  mysql:
+    restart: always
+    container_name: "mysql"
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mysql
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
