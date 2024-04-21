@@ -31,7 +31,7 @@ func main() {
 		login()
 
 	case 3:
-		register()
+		benchmark()
 	}
 }
 
