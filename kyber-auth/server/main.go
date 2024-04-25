@@ -2,13 +2,15 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
+	"runtime"
 
 	"github.com/cloudflare/circl/kem"
 	"github.com/cloudflare/circl/kem/kyber/kyber512"
-	pb "gitlab.sliit.lk/r24-055/r24-055/kyber-auth/proto"
 	"gitlab.sliit.lk/r24-055/r24-055/kyber-auth"
+	pb "gitlab.sliit.lk/r24-055/r24-055/kyber-auth/proto"
 	"google.golang.org/grpc"
 )
 
@@ -23,6 +25,15 @@ type registerServer struct {
 var privateKey = utils.ImportPriKey("kyber_id")
 
 func (s *keyExchangeServer) KeyExchange(ctx context.Context, in *pb.KeyExchangeRequest) (*pb.KeyExchangeResponse, error) {
+
+	// Memory benchmarking
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
+	fmt.Printf("Alloc = %v MiB", utils.BitsToMb(m.Alloc))
+	fmt.Printf("\tTotalAlloc = %v MiB", utils.BitsToMb(m.TotalAlloc))
+	fmt.Printf("\tSys = %v MiB", utils.BitsToMb(m.Sys))
+	fmt.Printf("\tNumGC = %v\n", m.NumGC)
+
 	encryptedAccessToken := Decapsulate(in.Kem, privateKey)
 	return &pb.KeyExchangeResponse{EncryptedSharedSecret: encryptedAccessToken}, nil
 }
