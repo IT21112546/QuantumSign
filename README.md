@@ -55,12 +55,12 @@ The `product` branch will have four micro-services that will be built by four in
 |            | Perform a benchmark to measure the performance difference between RSA and Dilithium. | Yes |
 |            | Implement a commercial token-granting server using Dilithium signed JWTs. | No |
 |            | Develop a commercial federated SSO system that supports concurrent users. | No |
-| IT21025808 | Implement an authentication system using Crystals-Kyber. | No |
+| IT21025808 | Implement an authentication system using Crystals-Kyber. | Yes |
 |            | Benchmark the infrastructure resource usage of RSA and Crystals-Kyber. | No |
 |            | Connect the authentication service to the token-granting server. | No |
-| IT21112546 | Implement a post-quantum key storage system using a vector database. | No |
-|            | Benchmark the key retrieval speed of the vector database. | No |
-|            | Compare it to speeds of traditional key storage systems. | No |
+| IT21112546 | Implement a post-quantum key storage system using a vector database. | Yes |
+|            | Benchmark the key retrieval speed of the vector database. | Yes |
+|            | Compare it to speeds of traditional key storage systems. | Yes |
 |            | Combine the key storage system with the authentication service. | No |
 | IT21146824 | Implement an anomaly detection model with an increased accuracy score. | No |
 |            | Attach the model to the authentication service and compare performance hits. | No |
