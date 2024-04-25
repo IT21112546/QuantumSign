@@ -12,6 +12,20 @@ message KeyExchangeResponse {
   bytes encrypted_shared_secret = 1;
 }
 
+message RegisterRequest {
+	bytes public_key = 1;
+	string username = 2;
+	string email = 3;
+}
+
+message RegisterResponse {
+	bool success = 1;
+}
+
 service KeyExchangeService {
 	rpc KeyExchange(KeyExchangeRequest) returns (KeyExchangeResponse);
+}
+
+service RegisterService {
+	rpc Register(RegisterRequest) returns (RegisterResponse);
 }
