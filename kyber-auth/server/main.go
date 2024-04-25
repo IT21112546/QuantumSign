@@ -12,27 +12,25 @@ import (
 	"google.golang.org/grpc"
 )
 
-type server struct {
+type keyExchangeServer struct {
 	pb.UnimplementedKeyExchangeServiceServer
+}
+
+type registerServer struct {
+	pb.UnimplementedRegisterServiceServer
 }
 
 var privateKey = utils.ImportPriKey("kyber_id")
 
-func (s *server) KeyExchange(ctx context.Context, in *pb.KeyExchangeRequest) (*pb.KeyExchangeResponse, error) {
+func (s *keyExchangeServer) KeyExchange(ctx context.Context, in *pb.KeyExchangeRequest) (*pb.KeyExchangeResponse, error) {
 	encryptedAccessToken := Decapsulate(in.Kem, privateKey)
 	return &pb.KeyExchangeResponse{EncryptedSharedSecret: encryptedAccessToken}, nil
 }
 
-func main() {
-	lis, err := net.Listen("tcp", ":50051")
-	utils.CheckErr(err)
-	log.Printf("Server listening at %v", lis.Addr())
+func (s *registerServer) Register(ctx context.Context, in *pb.RegisterRequest) (*pb.RegisterResponse, error) {
+	// Send to our vector DB and do the processing here and get a response
 
-	s := grpc.NewServer()
-	pb.RegisterKeyExchangeServiceServer(s, &server{})
-
-	srvErr := s.Serve(lis)
-	utils.CheckErr(srvErr)
+	return &pb.RegisterResponse{Success: true}, nil
 }
 
 func BytesToPublicKey(rawPublicKey []byte) (kem.PublicKey, error) {
@@ -46,3 +44,17 @@ func Decapsulate(kemData []byte, privateKey kem.PrivateKey) []byte {
 
 	return utils.CyclicXOR(sharedSecret, accessToken)
 }
+
+func main() {
+	lis, err := net.Listen("tcp", ":50051")
+	utils.CheckErr(err)
+	log.Printf("Server listening at %v", lis.Addr())
+
+	s := grpc.NewServer()
+	pb.RegisterKeyExchangeServiceServer(s, &keyExchangeServer{})
+	pb.RegisterRegisterServiceServer(s, &registerServer{})
+
+	srvErr := s.Serve(lis)
+	utils.CheckErr(srvErr)
+}
+
