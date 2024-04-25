@@ -13,7 +13,7 @@ import (
 )
 
 var serverPublicKey = utils.ImportPubKey("server_key.pub")
-const BENCHMARK_ITER = 100
+const BENCHMARK_ITER = 10000
 
 type User struct {
 	PublicKeyPath string
@@ -65,10 +65,10 @@ func login(pkPath string, conn *grpc.ClientConn, isBenchmark bool) {
 	}
 }
 
-func benchmark(iter uint8, keyPath string, conn *grpc.ClientConn) {
+func benchmark(iter uint32, keyPath string, conn *grpc.ClientConn) {
 	totalTime := time.Duration(0)
 
-	for i := uint8(0); i < iter; i++ {
+	for i := uint32(0); i <= iter; i++ {
 		start := time.Now()
 
 		login(keyPath, conn, true)
@@ -78,7 +78,7 @@ func benchmark(iter uint8, keyPath string, conn *grpc.ClientConn) {
 		totalTime += elapsed
 	}
 
-	fmt.Printf("\nAverage time taken: %v\n", totalTime/time.Duration(iter))
+	fmt.Printf("\nAverage CPU time taken per mutual authentication: %v\n", totalTime/time.Duration(iter))
 }
 
 func main() {

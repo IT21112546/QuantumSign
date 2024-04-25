@@ -56,7 +56,7 @@ The `product` branch will have four micro-services that will be built by four in
 |            | Implement a commercial token-granting server using Dilithium signed JWTs. | No |
 |            | Develop a commercial federated SSO system that supports concurrent users. | No |
 | IT21025808 | Implement an authentication system using Crystals-Kyber. | Yes |
-|            | Benchmark the infrastructure resource usage of RSA and Crystals-Kyber. | No |
+|            | Benchmark the infrastructure resource usage of RSA and Crystals-Kyber. | Yes |
 |            | Connect the authentication service to the token-granting server. | No |
 | IT21112546 | Implement a post-quantum key storage system using a vector database. | Yes |
 |            | Benchmark the key retrieval speed of the vector database. | Yes |

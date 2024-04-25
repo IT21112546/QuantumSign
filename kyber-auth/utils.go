@@ -44,3 +44,7 @@ func ImportPubKey(filename string) (kem.PublicKey) {
 	CheckErr(err)
 	return publicKey
 }
+
+func BitsToMb(b uint64) uint64 {
+	return b / 1024 / 1024
+}
