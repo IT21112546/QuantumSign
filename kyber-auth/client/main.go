@@ -12,26 +12,98 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-func main() {
-	conn, err := grpc.Dial("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+var serverPublicKey = utils.ImportPubKey("server_key.pub")
+
+type User struct {
+	PublicKeyPath string
+	Username      string
+	Email         string
+}
+
+func register(user User, conn *grpc.ClientConn) {
+	c := pb.NewRegisterServiceClient(conn)
+	clientPublicKey, err := utils.ImportPubKey(user.PublicKeyPath).MarshalBinary()
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := c.Register(ctx, &pb.RegisterRequest{
+		PublicKey: clientPublicKey,
+		Username: user.Username,
+		Email: user.Email,
+	})
 	utils.CheckErr(err)
-	defer conn.Close()
+
+	// Decrypt received data
+	registerSuccess := r.Success
+	if registerSuccess {
+		fmt.Println("You are registered")
+	} else {
+		fmt.Println("Registration failed")
+	}
+}
+
+func login(pkPath string, conn *grpc.ClientConn) {
+
 	c := pb.NewKeyExchangeServiceClient(conn)
-
-	clientPublicKey, err := utils.ImportPubKey("client_key.pub").MarshalBinary()
-
-	serverPublicKey := utils.ImportPubKey("server_key.pub")
+	clientPublicKey, err := utils.ImportPubKey(pkPath).MarshalBinary()
 	encryptedRandomString, randomString, err := kyber512.Scheme().Encapsulate(serverPublicKey)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	r, err := c.KeyExchange(ctx, &pb.KeyExchangeRequest{
 		PublicKey: clientPublicKey,
-		Kem: encryptedRandomString,
+		Kem:       encryptedRandomString,
 	})
 	utils.CheckErr(err)
 
 	// Decrypt received data
 	decryptedSecret := utils.CyclicXOR(randomString, r.EncryptedSharedSecret)
-	fmt.Printf("Decrypted result: %s\n", string(decryptedSecret))
+	fmt.Println("You are logged in")
+	fmt.Printf("Access Token: %s\n", string(decryptedSecret))
+}
+
+func main() {
+	conn, err := grpc.Dial("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	defer conn.Close()
+	utils.CheckErr(err)
+
+	utils.CheckErr(err)
+
+	fmt.Printf("What operation do you want to do?\n")
+	fmt.Printf("1: Register\n")
+	fmt.Printf("2: Login\n")
+	fmt.Printf("Choice: ")
+
+	// Take input
+	var input int
+	fmt.Scanln(&input)
+
+	switch input {
+	case 1:
+		var keyPath string
+		fmt.Printf("Enter the path to your public key: ")
+		fmt.Scanln(&keyPath)
+
+		var username string
+		fmt.Printf("Enter your username: ")
+		fmt.Scanln(&username)
+
+		var email string
+		fmt.Printf("Enter your email: ")
+		fmt.Scanln(&email)
+
+		user := User{
+			PublicKeyPath: keyPath,
+			Username:      username,
+			Email:         email,
+		}
+
+		register(user, conn)
+	case 2:
+		var keyPath string
+		fmt.Printf("Enter the path to the public key file: ")
+		fmt.Scanln(&keyPath)
+
+		login(keyPath, conn)
+	}
 }
