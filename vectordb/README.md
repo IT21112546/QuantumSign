@@ -157,3 +157,5 @@ docker container run --network host vectordb/mysql
 1. **MySQL**                : 50.6% ± 5.2%
 2. **Qdrant (Indexed)**     : 993% ± 31%
 3. **Qdrant (Non-Indexed)** : 988% ± 23%
+
++ **Note**: The benchmarks were generated on an HP Victus 15 with an AMD Ryzen 7 7535HS (8 Cores, 16 Threads, 3.3 GHz Base), 16GB DDR4 memory, Arch Linux (6.8.4-arch1-1 kernel).

@@ -53,14 +53,7 @@ docker container run -it --network host kyber-auth /bin/bash
 + Another interesting metric is that Priyadarshini Patil et al. demonstrated that RSA uses 14KB of memory.
 + Our implementation allocated a total of 77MB over 10,000 iterations.
 + Which means that on average, our implementation uses 7.7KB of memory per iteration.
-
-| Algorithm | CPU Time | Memory Usage |
-|-----------|----------|--------------|
-| RSA       | 425ms    | 14KB         |
-| Kyber     | 142μs    | 7.7KB        |
-
 + This is a further 58% reduction in memory usage compared to RSA.
 + All of these performance tests are reproducible via our benchmark programs containerized using Docker.
-
 
 + **Note**: The benchmarks were generated on an HP Victus 15 with an AMD Ryzen 7 7535HS (8 Cores, 16 Threads, 3.3 GHz Base), 16GB DDR4 memory, Arch Linux (6.8.4-arch1-1 kernel).
