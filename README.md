@@ -62,7 +62,7 @@ The `product` branch will have four micro-services that will be built by four in
 |            | Benchmark the key retrieval speed of the vector database. | Yes |
 |            | Compare it to speeds of traditional key storage systems. | Yes |
 |            | Combine the key storage system with the authentication service. | No |
-| IT21146824 | Implement an anomaly detection model with an increased accuracy score. | No |
+| IT21146824 | Implement an anomaly detection model with an increased accuracy score. | Yes |
 |            | Attach the model to the authentication service and compare performance hits. | No |
 
 ### Team Members
