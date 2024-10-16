@@ -155,3 +155,18 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.carousel-item {
+    width: 100%;
+    max-width: 100%;
+}
