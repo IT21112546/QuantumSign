@@ -65,7 +65,7 @@ export default function HomePage() {
       <section className="bg-yellow-500 py-20">
         <div className="container mx-auto text-center px-6">
           <h2 className="text-4xl font-extrabold text-black mb-6">
-            Secure your application's user authentication today
+            Secure your application&apos;s user authentication today
           </h2>
           <p className="text-lg text-gray-800 mb-10">
             Join thousands of developers who trust Qsign for their authentication needs.

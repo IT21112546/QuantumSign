@@ -15,7 +15,7 @@ export default function ClientRegistrationForm() {
               Register Your Client Application
             </h1>
             <p className="text-gray-600 mb-8 text-lg">
-              Enter your application's name and its redirect URL.
+              Enter your application&apos;s name and its redirect URL.
             </p>
 
             <form className="space-y-6">
