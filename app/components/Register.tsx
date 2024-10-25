@@ -43,6 +43,7 @@ export default function SignUpForm() {
         kyberPublicKey = fileContent;
       } catch (err) {
         setErrorMessage('Failed to read the public key file.');
+				console.log(err)
         return;
       }
     }
