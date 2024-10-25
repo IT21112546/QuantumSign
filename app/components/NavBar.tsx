@@ -20,7 +20,11 @@ export default function NavBar() {
             </li>
             <span className="text-gray-400">|</span>
             <li>
-              <Link href="/register-client">Register Client Application</Link>
+              <Link href="/register-client">Register Application</Link>
+            </li>
+            <span className="text-gray-400">|</span>
+            <li>
+              <Link href="/gen-keypair">Generate Keypair</Link>
             </li>
             <span className="text-gray-400">|</span>
             <li>
