@@ -17,7 +17,7 @@ export default function ClientRegistrationForm() {
   const [redirectUrlError, setRedirectUrlError] = useState('');
 
   // Access the API host from environment variables or use default
-  const API_HOST = process.env.NEXT_PUBLIC_API_HOST || 'localhost:8000';
+  const API_HOST = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:8000';
 
   // Function to validate URL
   const validateUrl = (url: string): boolean => {

@@ -19,7 +19,7 @@ export default function Register() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const API_HOST = process.env.NEXT_PUBLIC_API_HOST || 'localhost:8000';
+  const API_HOST = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:8000';
 
   useEffect(() => {
     if (successMessage) {
