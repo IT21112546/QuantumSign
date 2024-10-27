@@ -4,12 +4,12 @@ import ClientRegistration from '../components/ClientRegistration'
 import NavBar from '../components/NavBar'
 
 const page = () => {
-  return (
+	return (
 		<div>
 			<NavBar />
 			<ClientRegistration />
 		</div>
-  )
+	)
 }
 
 export default page
