@@ -171,6 +171,11 @@ export default function ClientRegistrationForm() {
 											: 'border-gray-300'
 										} focus:ring-yellow-400`}
 								/>
+								<ul className="mt-2 ml-2 list-disc list-inside text-gray-600">
+									<li className="text-sm text-gray-500 mb-2">
+										Use <i>https://client.qsign.io/login</i> for testing
+									</li>
+								</ul>
 								{redirectUrlError && (
 									<p className="mt-1 text-red-500 text-sm">
 										{redirectUrlError}
