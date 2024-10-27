@@ -7,7 +7,7 @@ import { Menu, X } from 'lucide-react'
 const navItems = [
 	{ name: 'Home', href: '/' },
 	{ name: 'Pricing', href: '/pricing' },
-	{ name: 'Register Application', href: '/register-client' },
+	{ name: 'Client Registration', href: '/register-client' },
 	{ name: 'Generate Keypair', href: '/gen-keypair' },
 	{ name: 'Our Research', href: 'https://research.qsign.io', external: true },
 ]
