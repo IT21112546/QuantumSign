@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from "@/components/ui/button"; // ShadCN Button component
-import { Input } from "@/components/ui/input"; // ShadCN Input component
-import { Label } from "@/components/ui/label"; // ShadCN Label component
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Upload } from 'lucide-react';
 
 export default function SignUpForm() {
-  // State management for form inputs and messages
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [publicKey, setPublicKey] = useState('');
@@ -15,40 +15,36 @@ export default function SignUpForm() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Access the API host from environment variables
   const API_HOST = process.env.NEXT_PUBLIC_API_HOST || 'localhost:8000';
 
-  // Redirect to '/login' after showing success message
   useEffect(() => {
     if (successMessage) {
       const timer = setTimeout(() => {
         router.push('/login');
-      }, 3000); // Redirect after 3 seconds
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
   }, [successMessage, router]);
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     let kyberPublicKey = publicKey;
 
-    // If a file is uploaded, read its content
     if (file) {
       try {
         const fileContent = await file.text();
         kyberPublicKey = fileContent;
       } catch (err) {
         setErrorMessage('Failed to read the public key file.');
-				console.log(err)
+        console.log(err)
         return;
       }
     }
 
-    // Prepare the request body
     const requestBody = {
       kyberPublicKey,
       username,
@@ -66,36 +62,34 @@ export default function SignUpForm() {
 
       if (response.ok) {
         const data = await response.json();
-        // Display success message and redirect
         setSuccessMessage(data.message || 'Registration successful!');
-        // Clear error message if any
         setErrorMessage('');
       } else {
         const errorData = await response.json();
         if (errorData && errorData.error) {
           setErrorMessage(errorData.error);
         } else if (errorData && errorData.message) {
-					setErrorMessage(errorData.message);
-				}
-				else {
+          setErrorMessage(errorData.message);
+        } else {
           setErrorMessage('Internal Server Error');
         }
-        // Clear success message if any
         setSuccessMessage('');
       }
     } catch (error) {
       console.error('Error:', error);
       setErrorMessage('Internal Server Error');
-      // Clear success message if any
       setSuccessMessage('');
     }
   };
 
-  // Handle file input change
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
     }
+  };
+
+  const handleFileButtonClick = () => {
+    fileInputRef.current?.click();
   };
 
   return (
@@ -105,24 +99,20 @@ export default function SignUpForm() {
           SIGN UP
         </h2>
 
-        {/* Display Success Message */}
         {successMessage && (
           <div className="mb-4 text-green-500 text-center font-semibold">
             {successMessage}
           </div>
         )}
 
-        {/* Display Error Message */}
         {errorMessage && (
           <div className="mb-4 text-red-500 text-center font-semibold">
             {errorMessage}
           </div>
         )}
 
-        {/* Form Inputs */}
         <form onSubmit={handleSubmit}>
           <div className="space-y-6">
-            {/* Username Field */}
             <div>
               <Label
                 htmlFor="username"
@@ -140,7 +130,6 @@ export default function SignUpForm() {
               />
             </div>
 
-            {/* Email Field */}
             <div>
               <Label
                 htmlFor="email"
@@ -158,7 +147,6 @@ export default function SignUpForm() {
               />
             </div>
 
-            {/* Public Key Field */}
             <div>
               <Label
                 htmlFor="publicKey"
@@ -177,7 +165,6 @@ export default function SignUpForm() {
             </div>
           </div>
 
-          {/* File Upload Section */}
           <div className="text-center my-8">
             <p className="text-gray-500 mb-4 text-sm">OR</p>
             <Label className="block font-bold text-gray-700 mb-2">
@@ -185,14 +172,23 @@ export default function SignUpForm() {
             </Label>
             <div className="bg-gray-50 shadow-md rounded-xl p-5">
               <input
+                ref={fileInputRef}
                 type="file"
                 accept=".pub"
                 onChange={handleFileChange}
+                className="hidden"
               />
+              <Button
+                type="button"
+                onClick={handleFileButtonClick}
+                className="w-full py-3 px-4 bg-white border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition-colors duration-300 flex items-center justify-center"
+              >
+                <Upload className="mr-2" size={20} />
+                {file ? file.name : 'Choose a file'}
+              </Button>
             </div>
           </div>
 
-          {/* Register Button */}
           <div className="mt-6 text-center">
             <Button
               type="submit"
@@ -206,4 +202,3 @@ export default function SignUpForm() {
     </div>
   );
 }
-
