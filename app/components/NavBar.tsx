@@ -44,7 +44,7 @@ export default function Navbar() {
 								Register
 							</button>
 						</Link>
-						<Link href="/login">
+						<Link href="https://client.qsign.io">
 							<button className="bg-teal-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-teal-600 transition-colors">
 								Simulate a Login
 							</button>
