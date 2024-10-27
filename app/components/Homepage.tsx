@@ -15,7 +15,7 @@ export default function HomePage() {
 						Qsign provides robust, scalable, and easy-to-implement future-proof authentication solutions.
 					</p>
 					<div className="flex justify-center space-x-6">
-						<Link href='/login'>
+						<Link href='https://client.qsign.io'>
 							<Button className="bg-yellow-500 text-black px-6 py-4 rounded-full hover:bg-yellow-600 transition-all text-lg font-semibold shadow-lg">
 								Get Started
 							</Button>
@@ -70,7 +70,7 @@ export default function HomePage() {
 					<p className="text-lg text-gray-800 mb-10">
 						Join thousands of developers who trust Qsign for their authentication needs.
 					</p>
-					<Link href='/login'>
+					<Link href='https://client.qsign.io'>
 						<Button className="bg-black text-white px-6 py-4 rounded-full hover:bg-gray-900 transition-all text-lg font-semibold shadow-lg">
 							Get Started Now
 						</Button>
