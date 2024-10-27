@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,20 +15,9 @@ export default function Register() {
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isFileLoading, setIsFileLoading] = useState(false); // Added isFileLoading state
-  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const API_HOST = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:8000';
-
-  useEffect(() => {
-    if (successMessage) {
-      const timer = setTimeout(() => {
-        router.push('/login');
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [successMessage, router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
