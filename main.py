@@ -204,14 +204,14 @@ def login_restriction(ip: str, allowed_country: str = "LK"):
 
     if response.status_code != 200:
         raise HTTPException(
-            status_code=500, detail="Unable to determine country from IP"
+            status_code=500, error="Unable to determine country from IP"
         )
 
     user_country = response.text.strip()
     if user_country != allowed_country:
         raise HTTPException(
             status_code=403,
-            detail=f"Risky login attempt detected",
+            error=f"Risky login attempt detected",
         )
 
 
