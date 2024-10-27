@@ -6,5 +6,5 @@ pages_build_output_dir = ".vercel/output/static"
 [vars]
 NODE_ENV = "production"
 NODE_VERSION = "22.10.0"
-NEXT_PUBLIC_API_HOST = "api.qsign.io"
 NEXT_PUBLIC_TEST_CLIENT_URL = "client.qsign.io"
+NEXT_PUBLIC_API_HOST = "api.qsign.io"
