@@ -186,7 +186,7 @@ export default function SignUpForm() {
             <div className="bg-gray-50 shadow-md rounded-xl p-5">
               <input
                 type="file"
-                accept=".txt,.pem"
+                accept=".pub"
                 onChange={handleFileChange}
               />
             </div>
