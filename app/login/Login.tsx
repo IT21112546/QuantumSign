@@ -1,6 +1,5 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
 import { jwtDecode } from 'jwt-decode' 
 import { useState, useEffect } from 'react'
 
@@ -12,9 +11,7 @@ interface DecodedToken {
   exp: number;
 }
 
-export default function Login() {
-  const searchParams = useSearchParams()
-  const token = searchParams.get('token')
+export default function Login( { token }: { token: string | null } ) {
 
   const [decodedToken, setDecodedToken] = useState<DecodedToken | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
