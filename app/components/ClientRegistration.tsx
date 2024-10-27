@@ -50,7 +50,7 @@ export default function ClientRegistrationForm() {
     };
 
     try {
-      const response = await fetch(`http://${API_HOST}/client-registration`, {
+      const response = await fetch(`${API_HOST}/client-registration`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

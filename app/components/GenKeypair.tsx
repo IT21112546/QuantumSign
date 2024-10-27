@@ -16,7 +16,7 @@ export default function GenerateKeypair() {
   const handleGenerateKeypair = async () => {
     setError(""); // Reset the error before the request
     try {
-      const response = await fetch(`http://${API_HOST}/generate/kyber`);
+      const response = await fetch(`${API_HOST}/generate/kyber`);
       if (!response.ok) {
         throw new Error(`API error: ${response.status}`);
       }
