@@ -5,19 +5,18 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: fastapi
-    ports:
-      - 8000:8000
+    network_mode: host
     depends_on:
       - mongo
       - qdrant
+      - go-service
 
   go-service:
     build:
       context: ./api-service
       dockerfile: Dockerfile
     container_name: go-service
-    ports:
-      - 4444:4444
+    network_mode: host
     depends_on:
       - mongo
       - qdrant
@@ -30,6 +29,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: sliit123
+    network_mode: host
 
   mongo-express:
     image: mongo-express:latest
@@ -42,6 +42,7 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongo
       ME_CONFIG_BASICAUTH_USERNAME: root
       ME_CONFIG_BASICAUTH_PASSWORD: sliit123
+    network_mode: host
 
   qdrant:
     image: qdrant/qdrant
@@ -51,3 +52,4 @@ services:
       - 6334:6334
     volumes:
       - ./.qdrant_storage:/qdrant/storage:z
+    network_mode: host
