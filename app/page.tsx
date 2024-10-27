@@ -1,14 +1,20 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 export default function Home() {
   const router = useRouter()
-  const clientId = process.env.NEXT_CLIENT_ID || '26d9b87b-8b44-4bc3-8f10-2b966258b136'
+  const [clientId, setClientId] = useState('')
   const apiHost = process.env.NEXT_PUBLIC_SSO_URL || 'http://localhost:3000'
 
   const handleLogin = () => {
+    if (!clientId) {
+      alert('Please enter a valid Client ID')
+      return
+    }
     router.push(`${apiHost}/login?client-id=${clientId}`)
   }
 
@@ -19,11 +25,21 @@ export default function Home() {
         <p className="text-center text-gray-600">
           This is a testing page for OAuth 2.0 client authentication for the Qsign SSO.
         </p>
-        <div className="text-center">
-          <p className="font-semibold text-gray-700">Client ID: {clientId}</p>
+        <div className="space-y-4">
+          <label htmlFor="clientId" className="block text-sm font-medium text-gray-700">
+            Client ID:
+          </label>
+          <Input
+            id="clientId"
+            type="text"
+            placeholder="Enter your Client ID"
+            value={clientId}
+            onChange={(e) => setClientId(e.target.value)}
+            className="w-full"
+          />
         </div>
         <Button onClick={handleLogin} className="w-full">
-          Login with Qsign
+          Simulate Login with Qsign
         </Button>
       </div>
     </div>
