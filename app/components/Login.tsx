@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Loader2, Upload } from 'lucide-react'
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Loader2, Upload, AlertCircle } from 'lucide-react'
 
 interface LoginProps {
   clientId: string
@@ -15,6 +16,7 @@ export default function Login({ clientId }: LoginProps) {
   const [publicKey, setPublicKey] = useState('')
   const [file, setFile] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
@@ -29,7 +31,7 @@ export default function Login({ clientId }: LoginProps) {
       }
       reader.readAsText(file)
     } else {
-      alert('Please upload a valid .pub file')
+      setError('Please upload a valid .pub file')
       if (fileInputRef.current) {
         fileInputRef.current.value = ''
       }
@@ -39,6 +41,7 @@ export default function Login({ clientId }: LoginProps) {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setIsLoading(true)
+    setError(null)
 
     const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:8000'}/login`
     
@@ -54,15 +57,16 @@ export default function Login({ clientId }: LoginProps) {
         }),
       })
 
+      const data = await response.json()
+
       if (!response.ok) {
-        throw new Error('Login failed')
+        throw new Error(data.error || 'Login failed')
       }
 
-      const data = await response.json()
       router.push(`${data.redirectUrl}?token=${data.accessToken}`)
     } catch (error) {
       console.error('Login error:', error)
-      alert('Login failed. Please try again.')
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred')
     } finally {
       setIsLoading(false)
     }
@@ -74,6 +78,13 @@ export default function Login({ clientId }: LoginProps) {
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">
           Sign In
         </h2>
+
+        {error && (
+          <Alert variant="destructive" className="mb-6">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
 
         <form onSubmit={handleSubmit}>
           <div className="space-y-6">
