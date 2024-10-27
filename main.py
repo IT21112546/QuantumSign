@@ -10,12 +10,8 @@ import json
 app = FastAPI(
     title="SSO API for PQC Backend",
     description=(
-        "**MongoDB Database**\n"
-        "   - **URL**: [http://api.qsign.io:8081](http://api.qsign.io:8081)\n"
-        "   - **Username**: root\n"
-        "   - **Password**: sliit123\n\n"
         "**Qdrant Database**\n"
-        "   - **URL**: [http://api.qsign.io:6333/dashboard](http://api.qsign.io:6333/dashboard)\n"
+        "   - **URL**: [http://qsign.southeastasia.cloudapp.azure.com:6333/dashboard](http://qsign.southeastasia.cloudapp.azure.com:6333/dashboard)\n"
     ),
     version="1.0.0",
 )
@@ -121,7 +117,8 @@ async def login(request: Request, request_data: LoginRequest):
     Logs in a user using their public key and optionally a client ID.
     Relays the request to the backend and returns a JWT token and redirect URL.
     """
-    client_ip = request.client.host
+
+    client_ip = request.headers.get('cf-connecting-ip') or request.client.host
     login_restriction(client_ip)
 
     return relay_request("/login", data=request_data.dict())
