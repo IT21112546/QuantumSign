@@ -1,9 +1,11 @@
 from fastapi import FastAPI, Response, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from typing import Optional
 import requests
 import json
+
 
 app = FastAPI(
     title="SSO API for PQC Backend",
@@ -16,6 +18,16 @@ app = FastAPI(
         "   - **URL**: [http://api.qsign.io:6333/dashboard](http://api.qsign.io:6333/dashboard)\n"
     ),
     version="1.0.0",
+)
+
+
+# Configure CORS to allow all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
 )
 
 backend_url = "http://localhost:4444"  # Replace with actual backend URL if necessary
@@ -186,6 +198,11 @@ async def redirect_to_docs():
 
 
 def login_restriction(ip: str, allowed_country: str = "LK"):
+
+    # Allow if IP is local
+    if ip in ["localhost", "127.0.0.1"]:
+        return True
+
     response = requests.get(f"https://ipapi.co/{ip}/country/")
 
     if response.status_code != 200:
