@@ -5,15 +5,17 @@ import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Upload } from 'lucide-react';
+import { Upload, Loader2 } from 'lucide-react';
 
-export default function SignUpForm() {
+export default function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [publicKey, setPublicKey] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFileLoading, setIsFileLoading] = useState(false); // Added isFileLoading state
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -31,6 +33,7 @@ export default function SignUpForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     let kyberPublicKey = publicKey;
 
@@ -41,6 +44,7 @@ export default function SignUpForm() {
       } catch (err) {
         setErrorMessage('Failed to read the public key file.');
         console.log(err)
+        setIsLoading(false);
         return;
       }
     }
@@ -79,12 +83,24 @@ export default function SignUpForm() {
       console.error('Error:', error);
       setErrorMessage('Internal Server Error');
       setSuccessMessage('');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+      setFile(selectedFile);
+      setIsFileLoading(true); // Set isFileLoading to true
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const content = event.target?.result as string;
+        setPublicKey(content.trim());
+        setIsFileLoading(false); // Set isFileLoading to false after reading
+      };
+      reader.readAsText(selectedFile);
     }
   };
 
@@ -170,7 +186,7 @@ export default function SignUpForm() {
             <Label className="block font-bold text-gray-700 mb-2">
               UPLOAD YOUR PUBLIC KEY FILE
             </Label>
-            <div className="bg-gray-50 shadow-md rounded-xl p-5">
+            <div className="bg-gray-50 rounded-lg p-6 shadow-md flex justify-center">
               <input
                 ref={fileInputRef}
                 type="file"
@@ -181,10 +197,20 @@ export default function SignUpForm() {
               <Button
                 type="button"
                 onClick={handleFileButtonClick}
-                className="w-full py-3 px-4 bg-white border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition-colors duration-300 flex items-center justify-center"
+                className="bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition-all duration-300 flex items-center justify-center"
+                disabled={isFileLoading} // Use isFileLoading for button disable state
               >
-                <Upload className="mr-2" size={20} />
-                {file ? file.name : 'Choose a file'}
+                {isFileLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Reading file...
+                  </>
+                ) : (
+                  <>
+                    <Upload className="mr-2 h-5 w-5" />
+                    {file ? file.name : 'Upload File'}
+                  </>
+                )}
               </Button>
             </div>
           </div>
@@ -192,9 +218,17 @@ export default function SignUpForm() {
           <div className="mt-6 text-center">
             <Button
               type="submit"
-              className="bg-black text-white w-full py-3 rounded-full text-lg font-bold hover:bg-gray-900 focus:ring-2 focus:ring-yellow-400"
+              className="bg-black text-white w-full py-3 rounded-full text-lg font-bold hover:bg-gray-900 focus:ring-2 focus:ring-yellow-400 flex items-center justify-center"
+              disabled={isLoading}
             >
-              REGISTER
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Registering...
+                </>
+              ) : (
+                'REGISTER'
+              )}
             </Button>
           </div>
         </form>
