@@ -1,32 +1,13 @@
-'use client'
-
-import { useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import Login from '../components/Login'
+import LoginPage from '../components/LoginPage'
 import NavBar from '../components/NavBar'
+import { Suspense } from 'react'
 
-const LoginPage = () => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const clientId = searchParams.get('client-id')
-
-  useEffect(() => {
-    const redirectUrl = process.env.NEXT_PUBLIC_TEST_CLIENT_URL || "http://localhost:3001"
-    if (!clientId) {
-      router.push(redirectUrl)
-    }
-  }, [clientId, router])
-
-  if (!clientId) {
-    return null // or a loading spinner
-  }
-
+const page = () => {
   return (
-    <div>
-      <NavBar />
-      <Login clientId={clientId} />
-    </div>
+		<Suspense>
+			<LoginPage />
+		</Suspense>
   )
 }
 
-export default LoginPage
+export default page
