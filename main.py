@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Response, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, JSONResponse
 from pydantic import BaseModel
 from typing import Optional
 import requests
@@ -16,6 +16,13 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# Custom Exception Handler
+@app.exception_handler(HTTPException)
+async def custom_http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"error": exc.detail}
+    )
 
 # Configure CORS to allow all origins
 app.add_middleware(
@@ -204,14 +211,14 @@ def login_restriction(ip: str, allowed_country: str = "LK"):
 
     if response.status_code != 200:
         raise HTTPException(
-            status_code=500, error="Unable to determine country from IP"
+            status_code=500, detail="Unable to determine country from IP"
         )
 
     user_country = response.text.strip()
     if user_country != allowed_country:
         raise HTTPException(
             status_code=403,
-            error=f"Risky login attempt detected",
+            detail=f"Risky login attempt detected",
         )
 
 
