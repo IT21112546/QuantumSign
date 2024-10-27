@@ -1,5 +1,27 @@
 version: '3.8'
 services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi
+    ports:
+      - 80:80
+    depends_on:
+      - mongo
+      - qdrant
+
+  go-service:
+    build:
+      context: ./api-service
+      dockerfile: Dockerfile
+    container_name: go-service
+    ports:
+      - 4444:4444
+    depends_on:
+      - mongo
+      - qdrant
+
   mongo:
     image: mongo:latest
     container_name: mongo
