@@ -126,7 +126,7 @@ async def login(request: Request, request_data: LoginRequest):
     """
 
     client_ip = request.headers.get('cf-connecting-ip') or request.client.host
-    login_restriction(client_ip)
+    predict(client_ip)
 
     return relay_request("/login", data=request_data.dict())
 
@@ -201,7 +201,7 @@ async def redirect_to_docs():
     return RedirectResponse(url="/docs")
 
 
-def login_restriction(ip: str, allowed_country: str = "LK"):
+def predict(ip: str, allowed_country: str = "LK"):
 
     # Allow if IP is local
     if ip in ["localhost", "127.0.0.1"]:
